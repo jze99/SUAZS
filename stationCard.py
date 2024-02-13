@@ -34,6 +34,13 @@ class StationCard(UserControl):
         return round((self.amount_of_fuel/ self.maximum_fuel_capacity)*100,2)
     
     def fuel_percentage_scale(self, maximum_line_width):# ширина контейнера в зависимости от количества топлива 
-        return (self.amount_of_fuel/self.maximum_fuel_capacity) * maximum_line_width         
+        return (self.amount_of_fuel/self.maximum_fuel_capacity) * maximum_line_width  
+    
+    def build(self):
+        return Container(
+            height=50,
+            width=50,
+            bgcolor="#000000"
+        )       
     
         

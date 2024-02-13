@@ -22,8 +22,13 @@ class Body(UserControl):
         )
     
     def OpenSettingColumn(self):
-        from settingСolumn import setting_column
-        self.body_part.content = Container(setting_column)
+        from settingСolumn import SettingColumn
+        self.body_part.content = Container(SettingColumn())
+        self.body_part.update()
+        
+    def OpenSettingStation(self, _self):
+        from setingStation import SetingStation
+        self.body_part.content = Container(SetingStation(self_column=_self))
         self.body_part.update()
     
     def build(self):

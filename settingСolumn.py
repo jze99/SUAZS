@@ -29,9 +29,9 @@ class SettingColumn(UserControl):
         from dataFuel import column_card_data
         from columnCard import ColumnCard
         from heder import heder_main
-        column_card = ColumnCard(self.name_column.value, status="Свободна")
+        column_card = ColumnCard(name_column=self.name_column.value, status="Свободна")
         column_card_data.AddData(data=column_card)
-        heder_main.row_column_card.controls.insert(0, Card(content=column_card))
+        heder_main.row_column_card.controls.insert(len(heder_main.row_column_card.controls)-1, Card(content=column_card))
         heder_main.row_column_card.update()
     
     def build(self):
@@ -50,5 +50,3 @@ class SettingColumn(UserControl):
                 ),
             ]
         )
-
-setting_column = SettingColumn()

@@ -17,7 +17,7 @@ class Heder(UserControl):
     self.row_column_card = Row(
       scroll=True,
       alignment=CrossAxisAlignment.END,
-      height=140,
+      #height=140,
       auto_scroll=True,
       controls=[
           self.add_fueld_card_button,
