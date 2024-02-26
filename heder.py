@@ -1,5 +1,4 @@
 from flet import *
-from dialogCheng import *
 
 class Heder(UserControl):
   def __init__(self):
@@ -23,6 +22,17 @@ class Heder(UserControl):
           self.add_fueld_card_button,
       ],
     )
+    
+    self.LoadingDataСolumn()
+    
+  def LoadingDataСolumn(self):
+        from dataFuel import data_base
+        from columnCard import ColumnCard
+        column_data = data_base.LoadingColumnCard()
+        for colm in column_data:
+          column_card = ColumnCard(name_column=colm[1], status=colm[2])
+          self.row_column_card.controls.insert(len(self.row_column_card.controls)-1, Card(content=column_card))
+          #self.row_column_card.update()
   
   def AddColumnCardBodySetting(self, e):
     from body import body_part

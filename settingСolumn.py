@@ -22,15 +22,13 @@ class SettingColumn(UserControl):
                 color="#E0C097",
                 shape=RoundedRectangleBorder(radius=10) 
             ),    
-            on_click=self.add_column_button
+            on_click=self.AddColumnButton
         )
         
-    def add_column_button(self, e):
-        from dataFuel import column_card_data
+    def AddColumnButton(self, e):
         from columnCard import ColumnCard
         from heder import heder_main
-        column_card = ColumnCard(name_column=self.name_column.value, status="Свободна")
-        column_card_data.AddData(data=column_card)
+        column_card = ColumnCard(name_column=self.name_column.value, status=True)
         heder_main.row_column_card.controls.insert(len(heder_main.row_column_card.controls)-1, Card(content=column_card))
         heder_main.row_column_card.update()
     

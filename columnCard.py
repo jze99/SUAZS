@@ -6,10 +6,7 @@ class ColumnCard(UserControl):
         
         self.name_column = name_column # название колонки
         self.status = status # статус колонки
-        self.row_station_card = Row(
-            
-        )
-        
+        self.row_station_card = Row()
         
         self.name_column_text = Text(
             value=self.name_column,
@@ -20,6 +17,15 @@ class ColumnCard(UserControl):
             value=self.status,
             size=10,
             color="#E0C097"
+        )
+        
+        self.button_change = IconButton(
+            icon=icons.CHANGE_CIRCLE_OUTLINED,
+            icon_size=30,
+            style=ButtonStyle(
+                color="#E0C097",
+                shape=RoundedRectangleBorder(radius=10) 
+            ), 
         )
     
     def add_station(self, e):
@@ -40,7 +46,6 @@ class ColumnCard(UserControl):
                 content=Container(
                     content=Column(
                         alignment=MainAxisAlignment.START,
-                        horizontal_alignment=CrossAxisAlignment.START,
                         controls=[
                             self.name_column_text,
                             self.status_text,
@@ -48,6 +53,7 @@ class ColumnCard(UserControl):
                             Row(
                                 alignment=MainAxisAlignment.END,
                                 controls=[
+                                    self.button_change,
                                     IconButton(
                                         icon=icons.ADD_BOX_OUTLINED,
                                         icon_size=30,
@@ -56,7 +62,7 @@ class ColumnCard(UserControl):
                                             shape=RoundedRectangleBorder(radius=10) 
                                         ), 
                                         on_click=self.add_station,
-                                    ),
+                                    ), 
                                 ],
                             ),
                         ],

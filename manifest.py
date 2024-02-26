@@ -1,6 +1,5 @@
 from flet import Page, app
 from view import ViewsHendler
-from dialogCheng import *
 
 def main(page: Page):
     page.window_height = 670
@@ -8,7 +7,6 @@ def main(page: Page):
     page.window_min_height = 670
     page.window_min_width = 400
     page.title = "СУАЗС"
-    page.dialog = dialog_cheg.dlg_setings
     
     def PageLoading(route):
         print(page.route)
