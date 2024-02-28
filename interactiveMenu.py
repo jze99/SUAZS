@@ -24,6 +24,28 @@ class InteractiveMenu(UserControl):
             on_click=self.OpenNewTypeFuel
         )
         
+        self.button_view_fuel = Row(
+            spacing=0,
+            controls=[
+                Text(
+                    size=10,
+                    value="Виды топлива:"
+                ),
+                IconButton(
+                    icon=icons.TABLE_ROWS,
+                    icon_size=30,
+                    style=ButtonStyle(
+                        color="#E0C097",
+                        shape=RoundedRectangleBorder(radius=10) 
+                    ), 
+                    on_click=self.OpenListViewFuel
+                )
+            ]
+        )
+    def OpenListViewFuel(self, e):
+        from body import body_part
+        body_part.OpenSetingFuelView()
+        
     def OpenMainHome(self, e):
         from body import body_part
         body_part.OpenMainHome()
@@ -34,9 +56,11 @@ class InteractiveMenu(UserControl):
         
     def build(self):
         return Row(
+            spacing=3,
             controls=[
                 self.button_home,
-                self.button_creating_new_type_fuel
+                self.button_creating_new_type_fuel,
+                self.button_view_fuel
             ]
         )
     

@@ -45,7 +45,18 @@ class SetingStation(UserControl):
             label="Топливо",
             height=55,
             expand=1, 
+            border_color="#B85C38",
+            
         )
+        self.LoadListFuel()
+        
+    def LoadListFuel(self):
+        from dataFuel import data_base
+        list_fuel = data_base.LoadListFuel()
+        self.type_of_fuel.options.clear()
+        for _list in list_fuel:
+            _list = _list[1:]
+            self.type_of_fuel.options.append(dropdown.Option(str(_list)))
         
     def UpdatingCurrentFuelSlider(self, e):
         self.selected_amount_of_fuel.value = round(self.slider_toplivo.value, 0)
