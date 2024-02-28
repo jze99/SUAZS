@@ -1,24 +1,11 @@
-import mysql.connector
-
-
-class DataFuel():
-    def __init__(self):
-        self.colonfuel
-        
-class DataColumnFuel():
-    def __init__(self, name_column, liters, percentages, view, status):
-        self.name_column = name_column
-        self.liters = liters
-        self.percentages = percentages
-        self.view = view
-        self.status = status         
+import mysql.connector        
 
 class DataBase():
     def __init__(self):
         self.config = {
           'user': 'root',
           'host': 'localhost',
-          'database': 'sazs',
+          'database': 'sauzs',
           'raise_on_warnings': True
         }
         
@@ -44,7 +31,7 @@ class DataBase():
         except mysql.connector.Error as err:
             print("Ошибка:", err)
     
-    def AddDataColumnCard(self, name, status):
+    def AddDataColumnCardBD(self, name:str, status:bool):
         try:
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
@@ -69,30 +56,101 @@ class DataBase():
 
         except mysql.connector.Error as err:
             print("Ошибка:", err)
+            
+            
+    def LoadingStationCard(self, column_name:str):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
 
+
+            query = "SELECT * FROM stationcard WHERE name_station = %s"
+            cursor.execute(query, (column_name,))
+            rows = cursor.fetchall()
+            
+            cursor.close()
+            conn.close()
+            
+            if rows:
+                return rows
+            else:
+                print("нет данных")
+
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def AddDataStationCardBD(self, name_station:str, amount_of_fuel:float, maximum_fuel_capacity:float):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+
+            # Выполнение SQL-запроса
+            add_data = ("INSERT INTO stationcard "
+               "(name_station, amount_of_fuel, maximum_fuel_capacity) "
+               "VALUES (%s, %s, %s)")
+
+            # Данные для добавления
+            data = (name_station, amount_of_fuel, maximum_fuel_capacity)
+
+            # Выполнение SQL-запроса
+            cursor.execute(add_data, data)
+
+            # Подтверждение изменений
+            conn.commit()
+
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def AddDataTypeFuelBD(self, name_fuel:str, manufacturer_fuel:str, cost_fuel:float):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+
+            # Выполнение SQL-запроса
+            add_data = ("INSERT INTO type_fuel "
+               "(name_station, amount_of_fuel, maximum_fuel_capacity) "
+               "VALUES (%s, %s, %s)")
+
+            # Данные для добавления
+            data = (name_fuel, manufacturer_fuel, cost_fuel)
+
+            # Выполнение SQL-запроса
+            cursor.execute(add_data, data)
+
+            # Подтверждение изменений
+            conn.commit()
+
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+
+    def LoadListFuel(self):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+
+            # SQL-запрос для получения всех данных из таблицы
+            query = "SELECT * FROM fuel_type"
+
+            # Выполнение SQL-запроса
+            cursor.execute(query)
+
+            # Получение результатов запроса
+            records = cursor.fetchall()
+
+            cursor.close()
+            conn.close()
+
+            return records
+
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+    
 data_base = DataBase()
-
-        
-class ColumnCardData():
-    
-    def __init__(self):
-        self.DataCard = []
-        
-    def AddDataBD(self, data):
-        data_base.AddDataColumnCard(data.name_column, data.status)
-        
-    def AddData(self, data):
-        self.DataCard.append(data)
-        self.AddDataBD(data)
-        
-        
-class StationCardData():
-    
-    def __init__(self):
-        self.DataStation = []
-        
-    def AddData(self, data):
-        self.DataStation.append(data)
-        
-station_card_data = StationCardData()
-column_card_data = ColumnCardData()

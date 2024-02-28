@@ -1,16 +1,16 @@
 from flet import *
 
 class StationCard(UserControl):
-    def __init__(self, liters, amount_of_fuel, maximum_fuel_capacity, name_column):
+    def __init__(self, liters, amount_of_fuel, maximum_fuel_capacity, name_station, fuel_view, manufacturer_fuel):
         super().__init__()
         
-        self.name_column = name_column
+        self.name_station = name_station
         self.liters = liters # количество литров
         #self.percentages # количество топлива в процентах
-        #self.view = view # вид топлива
+        self.fuel_view = fuel_view # вид топлива
+        self.manufacturer_fuel = manufacturer_fuel
         self.amount_of_fuel = amount_of_fuel # количество топлива
         self.maximum_fuel_capacity = maximum_fuel_capacity # максимальое количество топлива
-        
         
         self.view_text = Text(
             #value=self.view,
@@ -19,7 +19,7 @@ class StationCard(UserControl):
         )
         self.percentages_text = Text(
             size=10,
-            value=str(int(self.percentage_of_fuel()))+"%",
+            value=str(int(self.PercentageOfFuel()))+"%",
             color="#E0C097"
         )
         self.liters_text = Text(
@@ -37,7 +37,7 @@ class StationCard(UserControl):
                 width=15,
                 border_radius=border_radius.all(3),
                 bgcolor="#E0C097",
-                height=self.fuel_percentage_scale(60)
+                height=self.FuelPercentageScale(60)
             )
         )
         self.button_delete = IconButton(
@@ -49,10 +49,10 @@ class StationCard(UserControl):
             ), 
         )
         
-    def percentage_of_fuel(self):
+    def PercentageOfFuel(self):
         return round((self.amount_of_fuel/ self.maximum_fuel_capacity)*100,2)
     
-    def fuel_percentage_scale(self, maximum_line_width):# ширина контейнера в зависимости от количества топлива 
+    def FuelPercentageScale(self, maximum_line_width):# ширина контейнера в зависимости от количества топлива 
         return (self.amount_of_fuel/self.maximum_fuel_capacity) * maximum_line_width  
     
     def build(self):

@@ -1,4 +1,5 @@
 from flet import *
+from setingHome import SetingHome
 
 class Body(UserControl):
     def __init__(self):
@@ -19,7 +20,11 @@ class Body(UserControl):
             bgcolor="#5C3D2E",
             border_radius=border_radius.all(3),
             padding=10,
+            content=Container(SetingHome())
         )
+    
+    def build(self):
+        return self.body_part
     
     def OpenSettingColumn(self):
         from settingСolumn import SettingColumn
@@ -30,8 +35,15 @@ class Body(UserControl):
         from setingStation import SetingStation
         self.body_part.content = Container(SetingStation(self_column=_self))
         self.body_part.update()
-    
-    def build(self):
-        return self.body_part
+        
+    def OpenMainHome(self):
+        from setingHome import SetingHome
+        self.body_part.content = Container(SetingHome())
+        self.body_part.update()
+        
+    def OpenNewTypeFuel(self):
+        from setingTypeFuel import SetingTypeFuel
+        self.body_part.content = Container(SetingTypeFuel())
+        self.body_part.update()
 
 body_part = Body()

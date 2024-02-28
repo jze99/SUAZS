@@ -67,15 +67,17 @@ class SetingStation(UserControl):
         
     def AddStationOfcolumn(self, e):
         from stationCard import StationCard
-        from dataFuel import station_card_data
-        station_card_data.AddData(StationCard(liters=self.selected_amount_of_fuel.value,
+        from dataFuel import data_base
+        
+        data_base.AddDataStationCardBD(
         amount_of_fuel=float(self.selected_amount_of_fuel.value),
         maximum_fuel_capacity=float(self.maximum_amount_of_fuel.value),
-        name_column=self.column_card.name_column))
+        name_station=self.column_card.name_column)
+        
         self.column_card.row_station_card.controls.append(Container(StationCard(liters=self.selected_amount_of_fuel.value,
         amount_of_fuel=float(self.selected_amount_of_fuel.value),
         maximum_fuel_capacity=float(self.maximum_amount_of_fuel.value),
-        name_column=self.column_card.name_column)))
+        name_station=self.column_card.name_column)))
         self.column_card.row_station_card.update()
     
     def build(self):

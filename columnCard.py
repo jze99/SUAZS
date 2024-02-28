@@ -18,17 +18,8 @@ class ColumnCard(UserControl):
             size=10,
             color="#E0C097"
         )
-        
-        self.button_change = IconButton(
-            icon=icons.CHANGE_CIRCLE_OUTLINED,
-            icon_size=30,
-            style=ButtonStyle(
-                color="#E0C097",
-                shape=RoundedRectangleBorder(radius=10) 
-            ), 
-        )
     
-    def add_station(self, e):
+    def AddStation(self, e):
         from body import body_part
         body_part.OpenSettingStation(_self= self)
     
@@ -53,7 +44,7 @@ class ColumnCard(UserControl):
                             Row(
                                 alignment=MainAxisAlignment.END,
                                 controls=[
-                                    self.button_change,
+                                    
                                     IconButton(
                                         icon=icons.ADD_BOX_OUTLINED,
                                         icon_size=30,
@@ -61,7 +52,7 @@ class ColumnCard(UserControl):
                                             color="#E0C097",
                                             shape=RoundedRectangleBorder(radius=10) 
                                         ), 
-                                        on_click=self.add_station,
+                                        on_click=self.AddStation,
                                     ), 
                                 ],
                             ),
