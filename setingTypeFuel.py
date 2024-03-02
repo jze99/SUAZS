@@ -66,31 +66,8 @@ class SetingTypeFuel(UserControl):
                 ),
                 Row(
                     controls=[self.cost_fuel_text]
-                )
-            ]
-        )
-        
-        self.new_manufacturer_fuel_text = TextField(
-            label="Производитель топлива",
-            height=60,
-            width=30,
-            border_color="#B85C38",
-            read_only=False,
-            value="",
-            text_size=16,
-            multiline=False,
-            expand=1,
-        )
-        
-        self.seting_new_manufacturer_fuel_column = Column(
-            controls=[
-                Row(
-                    controls=[
-                        self.new_manufacturer_fuel_text
-                    ]
                 ),
                 Row(
-                    alignment=MainAxisAlignment.END,
                     controls=[
                         IconButton(
                             icon=icons.ADD_BOX_OUTLINED,
@@ -99,7 +76,7 @@ class SetingTypeFuel(UserControl):
                                 color="#E0C097",
                                 shape=RoundedRectangleBorder(radius=10) 
                             ), 
-                            on_click=self.AddNewManufacturer
+                            on_click=self.AddDataFuelType
                         )
                     ]
                 )
@@ -112,15 +89,21 @@ class SetingTypeFuel(UserControl):
         
         self.LoadInfoFuel()
         
-        
+    def AddDataFuelType(self, e):
+        from dataFuel import data_base
+        data_base.AddDataTypeFuel(
+            view_fuel=self.name_fuel_text.value,
+            manufacturer=self.manufacturer_fuel_text.value,
+            cost=float(self.cost_fuel_text.value)
+        )
         
     def OpenAddViewFuel(self, e):
         from body import body_part
         body_part.OpenAddNewViewFuel()
         
     def OpenAddManufacturerFuel(self, e):
-        self.type_fuel_cont.content = self.seting_new_manufacturer_fuel_column
-        self.type_fuel_cont.update()
+        from body import body_part
+        body_part.OpenAddNewManufacturerFuel()
         
     def AddNewManufacturer(self, e):
         from dataFuel import data_base
@@ -193,3 +176,51 @@ class SetingAddNewViewFuel(UserControl):
             
     def build(self):
         return self.seting_new_view_fuel_column
+    
+class SetingAddNewManufacturerFuel(UserControl):
+        
+    def __init__(self):
+        super().__init__()
+            
+        self.new_manufacturer_fuel_text = TextField(
+            label="Производитель топлива",
+            height=60,
+            width=30,
+            border_color="#B85C38",
+            read_only=False,
+            value="",
+            text_size=16,
+            multiline=False,
+            expand=1,
+        )
+        
+        self.seting_new_manufacturer_fuel_column = Column(
+            controls=[
+                Row(
+                    controls=[
+                        self.new_manufacturer_fuel_text
+                    ]
+                ),
+                Row(
+                    alignment=MainAxisAlignment.END,
+                    controls=[
+                        IconButton(
+                            icon=icons.ADD_BOX_OUTLINED,
+                            icon_size=40,
+                            style=ButtonStyle(
+                                color="#E0C097",
+                                shape=RoundedRectangleBorder(radius=10) 
+                            ), 
+                            on_click=self.AddNewManufacturer
+                        )
+                    ]
+                )
+            ]
+        )
+        
+    def AddNewManufacturer(self, e):
+        from dataFuel import data_base
+        data_base.AddManufacturerFuel([self.new_manufacturer_fuel_text.value])
+            
+    def build(self):
+        return self.seting_new_manufacturer_fuel_column

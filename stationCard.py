@@ -1,14 +1,14 @@
 from flet import *
 
 class StationCard(UserControl):
-    def __init__(self, liters, amount_of_fuel, maximum_fuel_capacity, name_station, fuel_view, manufacturer_fuel):
+    def __init__(self, liters, amount_of_fuel, maximum_fuel_capacity, name_station, id_type_fuel):
         super().__init__()
         
         self.name_station = name_station
         self.liters = liters # количество литров
         #self.percentages # количество топлива в процентах
-        self.fuel_view = fuel_view # вид топлива
-        self.manufacturer_fuel = manufacturer_fuel
+        
+        self.id_type_fuel = id_type_fuel # id fuel_type
         self.amount_of_fuel = amount_of_fuel # количество топлива
         self.maximum_fuel_capacity = maximum_fuel_capacity # максимальое количество топлива
         

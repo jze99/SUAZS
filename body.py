@@ -55,5 +55,15 @@ class Body(UserControl):
         from setingTypeFuel import SetingAddNewViewFuel
         self.body_part.content = Container(SetingAddNewViewFuel())
         self.body_part.update()
+        
+    def OpenAddNewManufacturerFuel(self):
+        from setingTypeFuel import SetingAddNewManufacturerFuel
+        self.body_part.content = Container(SetingAddNewManufacturerFuel())
+        self.body_part.update()
+
+    def OpenSetingFuelManufacturer(self):
+        from setingFuelManufacturer import SetingFuelManufactorer
+        self.body_part.content = Container(SetingFuelManufactorer())
+        self.body_part.update()
 
 body_part = Body()

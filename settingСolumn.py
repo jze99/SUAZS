@@ -30,7 +30,7 @@ class SettingColumn(UserControl):
         from heder import heder_main
         from dataFuel import data_base
         
-        #data_base.AddDataColumnCardBD(name=self.name_column.value, status=True)
+        data_base.AddDataColumnCardBD(name=self.name_column.value, status=True)
         
         column_card = ColumnCard(name_column=self.name_column.value, status=True)
         heder_main.row_column_card.controls.insert(len(heder_main.row_column_card.controls)-1, Card(content=column_card))
