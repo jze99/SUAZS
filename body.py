@@ -71,7 +71,7 @@ class Body(UserControl):
         self.body_part.update()
         
     def OpenSetingUpdateViewFuel(self):
-        from setingAddDataTypeFuel import SetingUpadteViewFuel
+        from setingUpadteViewFuel import SetingUpadteViewFuel
         self.body_part.content = Container(SetingUpadteViewFuel())
         self.body_part.update()
         
