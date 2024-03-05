@@ -23,8 +23,7 @@ class Body(UserControl):
             content=Container(SetingHome())
         )
     
-    def build(self):
-        return self.body_part
+    
     
     def OpenSettingColumn(self):
         from settingСolumn import SettingColumn
@@ -42,6 +41,11 @@ class Body(UserControl):
         self.body_part.update()
         
     def OpenNewTypeFuel(self):
+        from setingAddDataTypeFuel import SetingAddDataTypeFuel
+        self.body_part.content = Container(SetingAddDataTypeFuel())
+        self.body_part.update()
+        
+    def OpenListTypeFuel(self):
         from setingTypeFuel import SetingTypeFuel
         self.body_part.content = Container(SetingTypeFuel())
         self.body_part.update()
@@ -52,12 +56,12 @@ class Body(UserControl):
         self.body_part.update()
     
     def OpenAddNewViewFuel(self):
-        from setingTypeFuel import SetingAddNewViewFuel
+        from setingAddNewViewFuel import SetingAddNewViewFuel
         self.body_part.content = Container(SetingAddNewViewFuel())
         self.body_part.update()
         
     def OpenAddNewManufacturerFuel(self):
-        from setingTypeFuel import SetingAddNewManufacturerFuel
+        from setingAddNewManufacturerFuel import SetingAddNewManufacturerFuel
         self.body_part.content = Container(SetingAddNewManufacturerFuel())
         self.body_part.update()
 
@@ -65,5 +69,13 @@ class Body(UserControl):
         from setingFuelManufacturer import SetingFuelManufactorer
         self.body_part.content = Container(SetingFuelManufactorer())
         self.body_part.update()
+        
+    def OpenSetingUpdateViewFuel(self):
+        from setingAddDataTypeFuel import SetingUpadteViewFuel
+        self.body_part.content = Container(SetingUpadteViewFuel())
+        self.body_part.update()
+        
+    def build(self):
+        return self.body_part
 
 body_part = Body()

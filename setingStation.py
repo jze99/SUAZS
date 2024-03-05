@@ -61,21 +61,23 @@ class SetingStation(UserControl):
         list_fuel = data_base.LoadListFuel()
         self.type_of_fuel.options.clear()
         
-        for i_list, _list in enumerate(list_fuel):
-            
-            self.optionsSelectTupeFuelDropdown.append(OptionsSelectTupeFuelDropdown(
-                _id = _list[0],
-                name_fuel = _list[1],
-                manufacturer_fuel = _list[2],
-                cost_fuel = _list[3]
-            ))
-            
-            self.type_of_fuel.options.append(self.optionsSelectTupeFuelDropdown[i_list].ReturnData())
+        if list_fuel:
+            for i_list, _list in enumerate(list_fuel):
+
+                self.optionsSelectTupeFuelDropdown.append(OptionsSelectTupeFuelDropdown(
+                    _id = _list[0],
+                    name_fuel = _list[1],
+                    manufacturer_fuel = _list[2],
+                    cost_fuel = _list[3]
+                ))
+
+                self.type_of_fuel.options.append(self.optionsSelectTupeFuelDropdown[i_list].ReturnData())
             
     def ChoosingSheetWithTypeFuel(self, e):# Выбор листа с видом топлива 
         for list_fuel_type in self.optionsSelectTupeFuelDropdown:
             if(str(list_fuel_type.name_fuel) + ": " + str(list_fuel_type.manufacturer_fuel) + ": " + str(list_fuel_type.cost_fuel)) == self.type_of_fuel.value:
                 self.selected_type_fuel = list_fuel_type
+                pass
         
     def UpdatingCurrentFuelSlider(self, e):# Обновление данных слайнера
         self.selected_amount_of_fuel.value = round(self.slider_toplivo.value, 0)
@@ -106,17 +108,20 @@ class SetingStation(UserControl):
             id_fuel_type = self.selected_type_fuel._id
         )
         
+        stant_card = StationCard(
+            liters=self.selected_amount_of_fuel.value,
+            amount_of_fuel=float(self.selected_amount_of_fuel.value),
+            maximum_fuel_capacity=float(self.maximum_amount_of_fuel.value),
+            name_station=self.column_card.name_column,
+            id_type_fuel=self.selected_type_fuel._id
+        )
+        stant_card.LoadTypeFuelId()   
+        
         self.column_card.row_station_card.controls.append( # Добовление в интерфейс 
             Container(
-                StationCard(
-                        liters=self.selected_amount_of_fuel.value,
-                        amount_of_fuel=float(self.selected_amount_of_fuel.value),
-                        maximum_fuel_capacity=float(self.maximum_amount_of_fuel.value),
-                        name_station=self.column_card.name_column,
-                        id_type_fuel=self.selected_type_fuel._id
-                    )
-                )
+                stant_card
             )
+        )
         self.column_card.row_station_card.update()
     
     def build(self):

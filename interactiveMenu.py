@@ -11,17 +11,28 @@ class InteractiveMenu(UserControl):
                 color="#E0C097",
                 shape=RoundedRectangleBorder(radius=10) 
             ),
-            on_click=self.OpenMainHome
+            on_click=self.OpenMainHome,
+            tooltip="Домашная странца"
         )
         
-        self.button_creating_new_type_fuel = IconButton(
-            icon=icons.FORMAT_LIST_BULLETED_ADD,
-            icon_size=30,
-            style=ButtonStyle(
-                color="#E0C097",
-                shape=RoundedRectangleBorder(radius=10) 
-            ), 
-            on_click=self.OpenNewTypeFuel
+        self.button_type_fuel = Row(
+            spacing=0,
+            controls=[
+                Text(
+                    value="Тип Топлива",
+                    size=10
+                ),
+                IconButton(
+                    icon=icons.FORMAT_LIST_BULLETED_ADD,
+                    icon_size=30,
+                    style=ButtonStyle(
+                        color="#E0C097",
+                        shape=RoundedRectangleBorder(radius=10) 
+                    ), 
+                    on_click=self.OpenListTypeFuel,
+                    tooltip="Тип топлива"
+                )
+            ]
         )
         
         self.button_view_fuel = Row(
@@ -38,7 +49,8 @@ class InteractiveMenu(UserControl):
                         color="#E0C097",
                         shape=RoundedRectangleBorder(radius=10) 
                     ), 
-                    on_click=self.OpenListViewFuel
+                    on_click=self.OpenListViewFuel,
+                    tooltip="Виды топлива"
                 )
             ]
         )
@@ -51,13 +63,14 @@ class InteractiveMenu(UserControl):
                     value="Производители топлива:"
                 ),
                 IconButton(
-                    icon=icons.TABLE_ROWS,
+                    icon=icons.PEOPLE_ALT_OUTLINED,
                     icon_size=30,
                     style=ButtonStyle(
                         color="#E0C097",
                         shape=RoundedRectangleBorder(radius=10) 
                     ), 
-                    on_click=self.OpenListManufacturerFuel
+                    on_click=self.OpenListManufacturerFuel,
+                    tooltip="Производители топлива"
                 )
             ]
         )
@@ -74,9 +87,9 @@ class InteractiveMenu(UserControl):
         from body import body_part
         body_part.OpenMainHome()
         
-    def OpenNewTypeFuel(self, e):
+    def OpenListTypeFuel(self, e):
         from body import body_part
-        body_part.OpenNewTypeFuel()
+        body_part.OpenListTypeFuel()
         
     def build(self):
         return Row(
@@ -84,7 +97,7 @@ class InteractiveMenu(UserControl):
             spacing=3,
             controls=[
                 self.button_home,
-                self.button_creating_new_type_fuel,
+                self.button_type_fuel,
                 self.button_view_fuel,
                 self.button_manufacturer_fuel
             ]

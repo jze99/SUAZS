@@ -1,4 +1,4 @@
-from flet import Page, app
+from flet import Page, app, AppView
 from view import ViewsHendler
 
 def main(page: Page):
@@ -16,3 +16,5 @@ def main(page: Page):
     page.go("/")
     
 app(target=main, assets_dir="assets")
+#app(target=main, view=AppView.WEB_BROWSER)
+

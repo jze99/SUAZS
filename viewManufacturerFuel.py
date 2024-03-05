@@ -1,6 +1,6 @@
 from flet import *
 
-class ViewFuel(UserControl):
+class ManufacturerFuel(UserControl):
     
     def __init__(self, id, view):
         super().__init__()
@@ -13,9 +13,9 @@ class ViewFuel(UserControl):
         from body import body_part
         from heder import heder_main
         
-        data_base.DeleteViewData(_id=self.id)
+        data_base.DeleteManufacturerData(_id=self.id)
         heder_main.UpdateDataRowStation()
-        body_part.OpenSetingFuelView()
+        body_part.OpenSetingFuelManufacturer()
     
     def build(self):
         return  Row(
@@ -41,4 +41,3 @@ class ViewFuel(UserControl):
                 )
             ]
         )
-                        

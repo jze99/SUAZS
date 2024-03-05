@@ -1,27 +1,28 @@
 from flet import *
 
-class ViewFuel(UserControl):
-    
-    def __init__(self, id, view):
+class ViewFuelType(UserControl):
+    def __init__(self, _id, view, manufacturer, cost):
         super().__init__()
         
-        self.id = id
+        self.id = _id
         self.view = view
+        self.manufacturer = manufacturer
+        self.cost = cost
     
-    def DeleteManufacturerFuel(self, e):
+    def DeleteViewFuel(self, e):
         from dataFuel import data_base
         from body import body_part
         from heder import heder_main
         
-        data_base.DeleteViewData(_id=self.id)
+        data_base.DeleteFuelTypeData(_id=self.id)
         heder_main.UpdateDataRowStation()
-        body_part.OpenSetingFuelView()
+        body_part.OpenListTypeFuel()
     
     def build(self):
-        return  Row(
+        return Row(
             controls=[
                 TextButton(
-                    text=self.view,
+                    text=str(self.view)+": "+str(self.manufacturer)+": "+str(self.cost),
                     height=40,
                     expand=1,
                     style=ButtonStyle(
@@ -37,8 +38,7 @@ class ViewFuel(UserControl):
                       color="#E0C097",
                       shape=RoundedRectangleBorder(radius=10) 
                     ),
-                  on_click=self.DeleteManufacturerFuel
+                  on_click=self.DeleteViewFuel
                 )
             ]
         )
-                        

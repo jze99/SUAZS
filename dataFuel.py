@@ -111,8 +111,8 @@ class DataBase():
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
             # Выполнение SQL-запроса
-            add_data = ("INSERT INTO fuel_type "
-               "(name_fuel, manufacturer_fuel, cost_fuel) "
+            add_data = ("INSERT INTO type_fuel "
+               "(view_fuel, manufacturer_fuel, cost_fuel) "
                "VALUES (%s, %s, %s)")
             # Данные для добавления
             data = (view_fuel, manufacturer, cost)
@@ -132,7 +132,7 @@ class DataBase():
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
             # SQL-запрос для получения всех данных из таблицы
-            query = "SELECT * FROM fuel_type"
+            query = "SELECT * FROM type_fuel"
             # Выполнение SQL-запроса
             cursor.execute(query)
             # Получение результатов запроса
@@ -148,7 +148,7 @@ class DataBase():
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
             # SQL-запрос для получения всех данных из таблицы
-            query = "SELECT * FROM name_fuel"
+            query = "SELECT * FROM view_fuel"
             # Выполнение SQL-запроса
             cursor.execute(query)
             # Получение результатов запроса
@@ -164,7 +164,7 @@ class DataBase():
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
             # SQL-запрос для получения всех данных из таблицы
-            query = "SELECT * FROM fuel_manufacturer"
+            query = "SELECT * FROM manufacturer_fuel"
             # Выполнение SQL-запроса
             cursor.execute(query)
             # Получение результатов запроса
@@ -180,8 +180,8 @@ class DataBase():
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
             # Выполнение SQL-запроса
-            add_data = ("INSERT INTO name_fuel "
-               "(fuel) "
+            add_data = ("INSERT INTO view_fuel "
+               "(view) "
                "VALUES (%s)")
             # Данные для добавления
             data = (view)
@@ -200,14 +200,98 @@ class DataBase():
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
             # Выполнение SQL-запроса
-            add_data = ("INSERT INTO fuel_manufacturer "
-               "(fuel_manufacturer) "
+            add_data = ("INSERT INTO manufacturer_fuel "
+               "(manufacturer) "
                "VALUES (%s)")
             # Данные для добавления
             data = (manufacturer)
             # Выполнение SQL-запроса
             cursor.execute(add_data, data)
             # Подтверждение изменений
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+    
+    def LoadingTypeFuelId(self, _id:str):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "SELECT * FROM type_fuel WHERE id = %s"
+            cursor.execute(query, (_id,))
+            rows = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            if rows:
+                return rows
+            else:
+                print("нет данных")
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def LoadListFuelType(self):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            # SQL-запрос для получения всех данных из таблицы
+            query = "SELECT * FROM type_fuel"
+            # Выполнение SQL-запроса
+            cursor.execute(query)
+            # Получение результатов запроса
+            records = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            return records
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+    
+    def DeleteViewData(self, _id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "DELETE FROM view_fuel WHERE id = %s"
+            cursor.execute(query, (_id,))
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+
+    def DeleteManufacturerData(self, _id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "DELETE FROM fuel_manufacturer WHERE id = %s"
+            cursor.execute(query, (_id,))
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def DeleteFuelTypeData(self, _id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "DELETE FROM type_fuel WHERE id = %s"
+            cursor.execute(query, (_id,))
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def UpdateViewFuelData(self, view, _id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "UPDATE view_fuel SET view = %s WHERE %s"
+            cursor.execute(query, (view, str(_id)))
             conn.commit()
             # Закрытие соединения
             cursor.close()

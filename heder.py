@@ -26,34 +26,45 @@ class Heder(UserControl):
     self.LoadingDataСolumn()
     
   def LoadingDataСolumn(self):
-        from dataFuel import data_base
-        from columnCard import ColumnCard
-        from stationCard import StationCard
-        
-        column_data = data_base.LoadingColumnCard()
-        
-        for colm in column_data:
-          column_card = ColumnCard(
-            name_column=colm[1],
-            status=colm[2]
+    from dataFuel import data_base
+    from columnCard import ColumnCard
+    from stationCard import StationCard
+
+    column_data = data_base.LoadingColumnCard()
+
+    if column_data == None:
+      return
+    
+    for colm in column_data:
+      column_card = ColumnCard(
+        name_column=colm[1],
+        status=colm[2]
+      )
+      self.row_column_card.controls.insert(len(self.row_column_card.controls)-1, Card(content=column_card))
+      station_card = data_base.LoadingStationCard(column_name=colm[1])
+      if station_card: 
+        for stat in station_card:
+          stat_card = StationCard(
+            liters=stat[2],
+            amount_of_fuel=stat[2],
+            maximum_fuel_capacity=stat[3],
+            name_station=stat[1],
+            id_type_fuel=stat[4]
           )
-          
-          self.row_column_card.controls.insert(len(self.row_column_card.controls)-1, Card(content=column_card))
-          
-          station_card = data_base.LoadingStationCard(column_name=colm[1])
-          if station_card: 
-            for stat in station_card:
-              column_card.row_station_card.controls.append(
-                Container(
-                  StationCard(
-                    liters=stat[2],
-                    amount_of_fuel=stat[2],
-                    maximum_fuel_capacity=stat[3],
-                    name_station=stat[1],
-                    id_type_fuel=[4]
-                  )
-                )
-              )
+          column_card.row_station_card.controls.append(
+            Container(
+              stat_card
+            )
+          )
+          stat_card.LoadTypeFuelId()
+    
+  def UpdateDataRowStation(self):
+    
+    self.row_column_card.controls.clear()
+    self.LoadingDataСolumn()
+    self.row_column_card.update()
+            
+            
   
   def AddColumnCardBodySetting(self, e):
     from body import body_part
