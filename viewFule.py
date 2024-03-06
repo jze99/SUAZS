@@ -2,13 +2,18 @@ from flet import *
 
 class ViewFuel(UserControl):
     
-    def __init__(self, id, view):
+    def __init__(self, id:int, view):
         super().__init__()
         
         self.id = id
         self.view = view
     
-    def DeleteManufacturerFuel(self, e):
+    def UpdateViewFuel(self, e):
+        from body import body_part
+        body_part.OpenSetingUpdateViewFuel(_id=self.id, view=self.view)
+        
+    
+    def DeleteViewFuel(self, e):
         from dataFuel import data_base
         from body import body_part
         from heder import heder_main
@@ -28,7 +33,7 @@ class ViewFuel(UserControl):
                         color="#E0C097",
                         shape=RoundedRectangleBorder(radius=10) 
                     ),
-                     
+                    on_click=self.UpdateViewFuel
                 ),
                 IconButton(
                   icon=icons.DELETE_OUTLINED,
@@ -37,7 +42,7 @@ class ViewFuel(UserControl):
                       color="#E0C097",
                       shape=RoundedRectangleBorder(radius=10) 
                     ),
-                  on_click=self.DeleteManufacturerFuel
+                  on_click=self.DeleteViewFuel
                 )
             ]
         )

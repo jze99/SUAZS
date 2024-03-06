@@ -1,11 +1,11 @@
 from flet import *
 
-class SetingUpadteViewFuel(UserControl):
+class SetingUpadteManufacturerFuel(UserControl):
         
     def __init__(self):
-        super().__init__()
-            
-        self.update_view_fuel_text = TextField(
+        super().__init__()    
+        
+        self.update_manufacturer_fuel_text = TextField(
             label="Производитель топлива",
             height=60,
             width=30,
@@ -17,11 +17,11 @@ class SetingUpadteViewFuel(UserControl):
             expand=1,
         )
         
-        self.seting_update_view_fuel_column = Column(
+        self.seting_update_manufacturer_fuel_column = Column(
             controls=[
                 Row(
                     controls=[
-                        self.update_view_fuel_text
+                        self.update_manufacturer_fuel_text
                     ]
                 ),
                 Row(
@@ -41,9 +41,23 @@ class SetingUpadteViewFuel(UserControl):
             ]
         )
         
+    def LoadData(self, _id, manufacturer):
+        self._id = _id
+        self.manufacturer = manufacturer
+        
+        self.update_manufacturer_fuel_text.value = self.manufacturer
+        self.update_manufacturer_fuel_text.update()
+        
     def UpdateView(self, e):
         from dataFuel import data_base
-        data_base.UpdateViewFuelData(view=self.update_view_fuel_text.value)
+        from body import body_part
+        from heder import heder_main
+        
+        data_base.UpdateManufacturerFuelData(manufacturer=self.update_manufacturer_fuel_text.value, _id=self._id)
+        
+        body_part.OpenSetingFuelManufacturer()   
+        
+        heder_main.UpdateDataRowStation()
             
     def build(self):
-        return self.seting_update_view_fuel_column
+        return self.seting_update_manufacturer_fuel_column

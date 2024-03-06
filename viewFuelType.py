@@ -8,8 +8,17 @@ class ViewFuelType(UserControl):
         self.view = view
         self.manufacturer = manufacturer
         self.cost = cost
+        
+    def UpdateTypeFuel(self,e):
+        from body import body_part
+        body_part.OpenSetingUpdateTypeFuel(
+            _id=self.id,
+            view=self.view,
+            manufacturer=self.manufacturer,
+            cost=self.cost
+        )
     
-    def DeleteViewFuel(self, e):
+    def DeleteTypeFuel(self, e):
         from dataFuel import data_base
         from body import body_part
         from heder import heder_main
@@ -29,7 +38,7 @@ class ViewFuelType(UserControl):
                         color="#E0C097",
                         shape=RoundedRectangleBorder(radius=10) 
                     ),
-                     
+                    on_click=self.UpdateTypeFuel
                 ),
                 IconButton(
                   icon=icons.DELETE_OUTLINED,
@@ -38,7 +47,7 @@ class ViewFuelType(UserControl):
                       color="#E0C097",
                       shape=RoundedRectangleBorder(radius=10) 
                     ),
-                  on_click=self.DeleteViewFuel
+                  on_click=self.DeleteTypeFuel
                 )
             ]
         )

@@ -264,7 +264,7 @@ class DataBase():
         try:
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
-            query = "DELETE FROM fuel_manufacturer WHERE id = %s"
+            query = "DELETE FROM manufacturer_fuel WHERE id = %s"
             cursor.execute(query, (_id,))
             conn.commit()
             # Закрытие соединения
@@ -290,8 +290,34 @@ class DataBase():
         try:
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
-            query = "UPDATE view_fuel SET view = %s WHERE %s"
-            cursor.execute(query, (view, str(_id)))
+            query = "UPDATE view_fuel SET view = %s WHERE id= %s"
+            cursor.execute(query, (view, _id))
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def UpdateManufacturerFuelData(self, manufacturer, _id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "UPDATE manufacturer_fuel SET manufacturer = %s WHERE id= %s"
+            cursor.execute(query, (manufacturer, _id))
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def UpdateTypeFuelData(self,view, manufacturer, cost, _id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "UPDATE type_fuel SET view_fuel = %s, manufacturer_fuel = %s, cost_fuel = %s WHERE id = %s"
+            cursor.execute(query, (view, manufacturer, cost, _id))
             conn.commit()
             # Закрытие соединения
             cursor.close()

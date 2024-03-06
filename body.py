@@ -70,10 +70,26 @@ class Body(UserControl):
         self.body_part.content = Container(SetingFuelManufactorer())
         self.body_part.update()
         
-    def OpenSetingUpdateViewFuel(self):
-        from setingUpadteViewFuel import SetingUpadteViewFuel
-        self.body_part.content = Container(SetingUpadteViewFuel())
+    def OpenSetingUpdateViewFuel(self, _id, view):
+        from setingUpdateViewFuel import SetingUpadteViewFuel
+        test = SetingUpadteViewFuel()
+        self.body_part.content = test
         self.body_part.update()
+        test.LoadData(_id=_id, view=view)
+        
+    def OpenSetingUpdateManufacturerFuel(self, _id, manufacturer):
+        from setingUpdateManufacturerFuel import SetingUpadteManufacturerFuel
+        test = SetingUpadteManufacturerFuel()
+        self.body_part.content = test
+        self.body_part.update()
+        test.LoadData(_id=_id, manufacturer=manufacturer)
+        
+    def OpenSetingUpdateTypeFuel(self, _id, view, manufacturer, cost):
+        from setingUpdateTypeFuel import SetingUpdateTypeFuel
+        test = SetingUpdateTypeFuel()
+        self.body_part.content = test
+        self.body_part.update()
+        test.LoadData(_id=_id, view=view, manufacturer=manufacturer, cost=cost)
         
     def build(self):
         return self.body_part

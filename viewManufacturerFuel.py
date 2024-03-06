@@ -6,7 +6,11 @@ class ManufacturerFuel(UserControl):
         super().__init__()
         
         self.id = id
-        self.view = view
+        self.manufacturer = view
+        
+    def UpdateManufacturerFuel(self, e):
+        from body import body_part
+        body_part.OpenSetingUpdateManufacturerFuel(_id=self.id, manufacturer=self.manufacturer)
     
     def DeleteManufacturerFuel(self, e):
         from dataFuel import data_base
@@ -21,14 +25,14 @@ class ManufacturerFuel(UserControl):
         return  Row(
             controls=[
                 TextButton(
-                    text=self.view,
+                    text=self.manufacturer,
                     height=40,
                     expand=1,
                     style=ButtonStyle(
                         color="#E0C097",
                         shape=RoundedRectangleBorder(radius=10) 
                     ),
-                     
+                    on_click=self.UpdateManufacturerFuel
                 ),
                 IconButton(
                   icon=icons.DELETE_OUTLINED,
