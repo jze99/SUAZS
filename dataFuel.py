@@ -324,5 +324,63 @@ class DataBase():
             conn.close()
         except mysql.connector.Error as err:
             print("Ошибка:", err)
+
+    def LoadListStationColumnCheac(self, name_column):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            # SQL-запрос для получения всех данных из таблицы по указанному столбцу
+            query = "SELECT * FROM station_card WHERE name_column = %s"
+            # Выполнение SQL-запроса с передачей параметра
+            cursor.execute(query, (name_column,))
+            # Получение результатов запроса
+            records = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            return records
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+    
+    def LoadListStationTypeFuelCheac(self, id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            # SQL-запрос для получения всех данных из таблицы по указанному столбцу
+            query = "SELECT * FROM type_fuel WHERE id = %s"
+            # Выполнение SQL-запроса с передачей параметра
+            cursor.execute(query, (id,))
+            # Получение результатов запроса
+            records = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            return records
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def DeleteStationCard(self, id):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "DELETE FROM station_card WHERE id = %s"
+            cursor.execute(query, (id,))
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def UpdateStationCard(self, id, amount_of_fuel, maximum_fuel_capacity, id_type_fuel):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            query = "UPDATE station_card SET amount_of_fuel = %s, maximum_fuel_capacity = %s, id_type_fuel = %s WHERE id = %s"
+            cursor.execute(query, (amount_of_fuel, maximum_fuel_capacity, id_type_fuel, id))
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
     
 data_base = DataBase()

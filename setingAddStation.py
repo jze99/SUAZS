@@ -1,6 +1,6 @@
 from flet import *
 
-class SetingStation(UserControl):
+class SetingAddStation(UserControl):
     def __init__(self, self_column):
         
         super().__init__()

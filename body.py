@@ -31,8 +31,8 @@ class Body(UserControl):
         self.body_part.update()
         
     def OpenSettingStation(self, _self):
-        from setingStation import SetingStation
-        self.body_part.content = Container(SetingStation(self_column=_self))
+        from setingAddStation import SetingAddStation
+        self.body_part.content = Container(SetingAddStation(self_column=_self))
         self.body_part.update()
         
     def OpenMainHome(self):
@@ -90,6 +90,23 @@ class Body(UserControl):
         self.body_part.content = test
         self.body_part.update()
         test.LoadData(_id=_id, view=view, manufacturer=manufacturer, cost=cost)
+        
+    def OpenSetingColumnCheac(self, name_column:str):
+        from setingColumnCheac import SetingColumnCheac
+        self.body_part.content=SetingColumnCheac(name_column=name_column)
+        self.body_part.update()
+        
+    def OpenSetingUpdateStationCard(self, self_column, maximum_amount_of_fuel, selected_amount_of_fuel, id_type_fuel, id):
+        from setingUpdateStationCard import SetingUpdateStation
+        
+        self.body_part.content = SetingUpdateStation(
+            self_column=self_column,
+            maximum_amount_of_fuel=maximum_amount_of_fuel,
+            selected_amount_of_fuel=selected_amount_of_fuel,
+            id_type_fuel=id_type_fuel,
+            id=id
+        )
+        self.body_part.update()
         
     def build(self):
         return self.body_part

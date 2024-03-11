@@ -13,15 +13,15 @@ class ColumnCard(UserControl):
             size=10,
             color="#E0C097",
         )
-        self.status_text = Text(
-            value=self.status,
-            size=10,
-            color="#E0C097"
-        )
+        
     
     def AddStation(self, e):
         from body import body_part
         body_part.OpenSettingStation(_self= self)
+        
+    def OpenColumnChec(self, e):
+        from body import body_part
+        body_part.OpenSetingColumnCheac(name_column=self.name_column)
     
     def build(self):
         return Container(
@@ -34,12 +34,12 @@ class ColumnCard(UserControl):
                 style = ButtonStyle(
                     shape=RoundedRectangleBorder(radius=10),
                     ),
+                on_click=self.OpenColumnChec,
                 content=Container(
                     content=Column(
                         alignment=MainAxisAlignment.START,
                         controls=[
                             self.name_column_text,
-                            self.status_text,
                             self.row_station_card,
                             Row(
                                 alignment=MainAxisAlignment.END,

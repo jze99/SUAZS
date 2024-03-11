@@ -6,7 +6,7 @@ class SetingUpadteViewFuel(UserControl):
         super().__init__()    
         
         self.update_view_fuel_text = TextField(
-            label="Производитель топлива",
+            label="Вид топлива",
             height=60,
             width=30,
             border_color="#B85C38",
