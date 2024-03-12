@@ -113,7 +113,8 @@ class SetingColumnCheac(UserControl):
             manufacturer_fuel=self.options.manufacturer_fuel,
             data_t=str(now.day)+": "+str(now.month)+": "+str(now.year),
             time=str(now.hour)+": "+str(now.minute)+": "+str(now.second),
-            liters=round(float(self.number_liters_slider.value),2)
+            liters=round(float(self.number_liters_slider.value),2),
+            name_column=self.options.name_column
         )    
     
         data_base.UpdateStationCard(
@@ -200,7 +201,8 @@ class SetingColumnCheac(UserControl):
                         manufacturer_fuel=type_fuel[2],
                         cost_fuel=type_fuel[3],
                         amount_fuel=_list[2],
-                        id_type_fuel=_list[4]
+                        id_type_fuel=_list[4],
+                        name_column=_list[1]
                     ))
 
                 self.type_of_fuel.options.append(self.optionsSelectTupeFuelDropdown[i_list].ReturnData())

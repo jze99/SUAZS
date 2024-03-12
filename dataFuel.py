@@ -383,16 +383,16 @@ class DataBase():
         except mysql.connector.Error as err:
             print("Ошибка:", err)
             
-    def AddCheacBD(self, cost, cost_per_liter, view_fuel, manufacturer_fuel, data_t, time, liters):
+    def AddCheacBD(self, cost, cost_per_liter, view_fuel, manufacturer_fuel, data_t, time, liters, name_column):
         try:
             conn = mysql.connector.connect(**self.config)
             cursor = conn.cursor()
             # Выполнение SQL-запроса
             add_data = ("INSERT INTO receipts "
-                        "(cost, cost_per_liter, view_fuel, manufacturer_fuel, data, time, liters) "
-                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
+                        "(cost, cost_per_liter, view_fuel, manufacturer_fuel, data, time, liters, column_name) "
+                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
             # Данные для добавления
-            data = (cost, cost_per_liter, view_fuel, manufacturer_fuel, data_t, time, liters)
+            data = (cost, cost_per_liter, view_fuel, manufacturer_fuel, data_t, time, liters, name_column)
             # Выполнение SQL-запроса
             cursor.execute(add_data, data)
             # Подтверждение изменений

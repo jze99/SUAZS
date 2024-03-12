@@ -6,45 +6,44 @@ class SetingHome(UserControl):
         super().__init__()
         
         self.colors = [
-            '#FF0000', # Красный
-            '#00FF00', # Зеленый
-            '#0000FF', # Синий
-            '#FFFF00', # Желтый
-            '#FF00FF', # Фиолетовый
-            '#00FFFF', # Бирюзовый
-            '#800000', # Темно-красный
-            '#008000', # Темно-зеленый
-            '#000080', # Темно-синий
-            '#FFA500', # Оранжевый
-            '#A52A2A', # Коричневый
-            '#800080', # Пурпурный
-            '#DC143C', # Карминный
-            '#808000', # Оливковый
-            '#FFD700', # Золотой
-            '#800080', # Фиолетовый
-            '#008080', # Бирюзовый
-            '#FF6347', # Морковный
-            '#C71585', # Ягодный
-            '#2E8B57', # Морской
-            '#4682B4', # Стальной синий
-            '#F0E68C', # Хаки
-            '#D2B48C', # Светло-коричневый
-            '#800000', # Темно-красный
-            '#B22222', # Огненный кирпич
-            '#808080', # Серый
-            '#F0F8FF', # Очень светло-голубой
-            '#FFD700', # Золотой
-            '#4B0082', # Индиго
-            '#696969', # Темно-серый
-            '#8A2BE2', # Изумрудный
-            '#ADFF2F', # Зеленый светлячок
-            '#CD5C5C', # Индийский красный
-            '#FF4500', # Огненно-красный
-            '#9370DB', # Фиолетовый
-            '#483D8B', # Темно-синевато-фиолетовый
-            '#6A5ACD', # Синевато-фиолетовый
-            '#4B0082', # Индиго
-            '#008080'  # Бирюзовый
+            '#8B4513',
+            '#A0522D',
+            '#CD853F',
+            '#D2691E',
+            '#8B5A2B',
+            '#A0522D',
+            '#BC8F8F',
+            '#A52A2A',
+            '#8B4513',
+            '#D2B48C',
+            '#A52A2A',
+            '#CD853F',
+            '#8B4513',
+            '#BC8F8F',
+            '#A0522D',
+            '#D2691E',
+            '#8B5A2B',
+            '#D2B48C',
+            '#BC8F8F',
+            '#8B5A2B',
+            '#A52A2A',
+            '#8B4513',
+            '#CD853F',
+            '#A0522D',
+            '#D2B48C',
+            '#8B4513',
+            '#A0522D',
+            '#BC8F8F',
+            '#A52A2A',
+            '#D2B48C',
+            '#8B4513',
+            '#D2691E',
+            '#CD853F',
+            '#8B5A2B',
+            '#BC8F8F',
+            '#A0522D',
+            '#CD853F',
+            '#A52A2A'
         ]
         
         self.list_receipts = []
@@ -93,6 +92,8 @@ class SetingHome(UserControl):
         
         list_data = data_base.LoadListDataReceipts()
         
+        if not list_data:
+            return
         for data in list_data:
             self.list_receipts.append(
                 Receipts(
@@ -108,13 +109,14 @@ class SetingHome(UserControl):
             
         self.list_receipts_temp = self.list_receipts[:]
         
-        #self.LoadReceiptsGroop()
         self.list_receipts_groop = self.LoadReceiptsGroop(self.list_receipts)
         self.MaxSales()
         self.LoadBarChart()
         
     def MaxSales(self):
         max_count = 0
+        if not self.list_receipts_groop:
+            return
         for i_receipts, receipts_groop in enumerate(self.list_receipts_groop):
             count = len(receipts_groop.receipts)  # Получаем количество элементов в текущем массиве
             if count > max_count:
@@ -124,9 +126,7 @@ class SetingHome(UserControl):
     
     def LoadReceiptsGroop(self, receipts_list):
         from receipts import ReceiptsGroop
-        
         receipts_groop_dict = {}
-
         for receipt in receipts_list:
             fuel_type = receipt.type_fuel
             if fuel_type not in receipts_groop_dict:
@@ -137,34 +137,10 @@ class SetingHome(UserControl):
 
         return list_receipts_groop
     
-    #def LoadReceiptsGroop(self):
-    #    from receipts import Receipts, ReceiptsGroop
-    #    
-    #    if self.list_receipts_groop:
-    #        for receipts_groop in self.list_receipts_groop:
-    #            if self.list_receipts_temp:
-    #                for receipts in self.list_receipts_temp:
-    #                    if receipts_groop.type_fuel == receipts.type_fuel:
-    #                            receipts_groop.AddReceipts(receipts=receipts)
-    #                            self.list_receipts_temp.remove(receipts)
-    #                            
-    #                    else:
-    #                        temp = ReceiptsGroop(receipts.type_fuel)
-    #                        temp.AddReceipts(receipts=receipts)
-    #                        self.list_receipts_groop.append(temp)
-    #                        self.list_receipts_temp.remove(receipts)
-    #                        self.LoadReceiptsGroop()               
-    #    else:
-    #        temp = ReceiptsGroop(self.list_receipts_temp[0].type_fuel)
-    #        temp.AddReceipts(receipts=self.list_receipts_temp[0])
-    #        self.list_receipts_groop.append(temp)
-    #        self.list_receipts_temp.remove(self.list_receipts_temp[0])
-    #        self.LoadReceiptsGroop()
-    
     def LoadBarChart(self):
-        
+        if not self.list_receipts_groop:
+            return
         self.earnings_statistics.max_y=int(len(self.list_receipts_groop[self.max_sales_id].receipts))+2
-        
         for i_receipts_groop, receipts_groop in enumerate(self.list_receipts_groop):
             self.earnings_statistics.bar_groups.append(
                 BarChartGroup(
@@ -188,9 +164,6 @@ class SetingHome(UserControl):
                 )   
             )
         pass
-            
-            
-        
         
     def build(self):
         return self.column_main
