@@ -382,5 +382,41 @@ class DataBase():
             conn.close()
         except mysql.connector.Error as err:
             print("Ошибка:", err)
+            
+    def AddCheacBD(self, cost, cost_per_liter, view_fuel, manufacturer_fuel, data_t, time, liters):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            # Выполнение SQL-запроса
+            add_data = ("INSERT INTO receipts "
+                        "(cost, cost_per_liter, view_fuel, manufacturer_fuel, data, time, liters) "
+                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
+            # Данные для добавления
+            data = (cost, cost_per_liter, view_fuel, manufacturer_fuel, data_t, time, liters)
+            # Выполнение SQL-запроса
+            cursor.execute(add_data, data)
+            # Подтверждение изменений
+            conn.commit()
+            # Закрытие соединения
+            cursor.close()
+            conn.close()
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
+            
+    def LoadListDataReceipts(self):
+        try:
+            conn = mysql.connector.connect(**self.config)
+            cursor = conn.cursor()
+            # SQL-запрос для получения всех данных из таблицы по указанному столбцу
+            query = "SELECT * FROM receipts"
+            # Выполнение SQL-запроса с передачей параметра
+            cursor.execute(query)
+            # Получение результатов запроса
+            records = cursor.fetchall()
+            cursor.close()
+            conn.close()
+            return records
+        except mysql.connector.Error as err:
+            print("Ошибка:", err)
     
 data_base = DataBase()

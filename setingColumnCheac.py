@@ -54,7 +54,7 @@ class SetingColumnCheac(UserControl):
                 color="#E0C097",
                 shape=RoundedRectangleBorder(radius=10) 
             ), 
-            
+            on_click=self.IssueReceipt
         )
         
         self.column_station = Column(
@@ -98,6 +98,34 @@ class SetingColumnCheac(UserControl):
         self.LoadListFuel()
         self.LoadingStationCard()
         
+    def IssueReceipt(self, e):#выпустить чек
+        from dataFuel import data_base
+        import datetime
+        from body import body_part
+        from heder import heder_main
+        
+        now = datetime.datetime.now()
+        
+        data_base.AddCheacBD(
+            cost=float(self.cost_text.value),
+            cost_per_liter=float(self.options.cost_fuel),
+            view_fuel=self.options.name_fuel,
+            manufacturer_fuel=self.options.manufacturer_fuel,
+            data_t=str(now.day)+": "+str(now.month)+": "+str(now.year),
+            time=str(now.hour)+": "+str(now.minute)+": "+str(now.second),
+            liters=round(float(self.number_liters_slider.value),2)
+        )    
+    
+        data_base.UpdateStationCard(
+            id=self.options._id,
+            amount_of_fuel=round(float(self.options.amount_fuel),2) - round(float(self.number_liters_slider.value),2),
+            maximum_fuel_capacity=self.options.amount_fuel,
+            id_type_fuel=self.options.id_type_fuel
+        )
+        
+        heder_main.UpdateDataRowStation()
+        body_part.OpenMainHome()
+    
     def LoadingStationCard(self):
         from dataFuel import data_base
         from buttonStationCard import ButtonStationCard
@@ -124,7 +152,7 @@ class SetingColumnCheac(UserControl):
         try:
             if self.options == None or self.number_liters_text == '':
                 return
-            self.cost_text.value = str(round(self.number_liters_slider.value * self.options.cost_fuel, 2)) + "р"
+            self.cost_text.value = str(round(self.number_liters_slider.value * self.options.cost_fuel, 2))
             self.cost_text.update()
         except ValueError:
             return
@@ -171,7 +199,8 @@ class SetingColumnCheac(UserControl):
                         name_fuel=type_fuel[1],
                         manufacturer_fuel=type_fuel[2],
                         cost_fuel=type_fuel[3],
-                        amount_fuel=_list[2]
+                        amount_fuel=_list[2],
+                        id_type_fuel=_list[4]
                     ))
 
                 self.type_of_fuel.options.append(self.optionsSelectTupeFuelDropdown[i_list].ReturnData())

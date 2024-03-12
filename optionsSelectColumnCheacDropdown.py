@@ -2,7 +2,7 @@ from flet import *
 
 class OptionsSelectColumnCheacDropdown(UserControl):
 
-    def __init__(self, _id, name_fuel, manufacturer_fuel, cost_fuel, amount_fuel):
+    def __init__(self, _id, name_fuel, manufacturer_fuel, cost_fuel, amount_fuel, id_type_fuel):
             super().__init__()
 
             self._id = _id
@@ -10,6 +10,7 @@ class OptionsSelectColumnCheacDropdown(UserControl):
             self.manufacturer_fuel = manufacturer_fuel
             self.cost_fuel = cost_fuel
             self.amount_fuel = amount_fuel
+            self.id_type_fuel=id_type_fuel
         
     def ReturnIf(self):
         return (str(self.name_fuel) + ": " + str(self.manufacturer_fuel) + ": " + str(self.cost_fuel) + "р : " + str(self.amount_fuel) + "л")
