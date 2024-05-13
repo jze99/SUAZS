@@ -13,7 +13,7 @@ def main(page: Page):
         page.views.clear()
         page.views.append(ViewsHendler(page=page)[page.route])
     page.on_route_change = PageLoading
-    page.go("/")
+    page.go("/log")
     
 app(target=main, assets_dir="assets")
 #app(target=main, view=AppView.WEB_BROWSER)

@@ -3,7 +3,6 @@ from flet import *
 class StationCard(UserControl):
     def __init__(self, liters, amount_of_fuel, maximum_fuel_capacity, name_station, id_type_fuel):
         super().__init__()
-        
         self.name_station = name_station
         self.liters = liters # количество литров
         #self.percentages # количество топлива в процентах
@@ -73,6 +72,9 @@ class StationCard(UserControl):
         return (self.amount_of_fuel/self.maximum_fuel_capacity) * maximum_line_width  
     
     def build(self):
+        import Person
+        if Person.Persona.stat != "admin":
+            self.button_delete.visible = False
         return Container(
             border_radius=border_radius.all(10),
             padding=6,

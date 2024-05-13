@@ -9,16 +9,16 @@ class ManufacturerFuel(UserControl):
         self.manufacturer = view
         
     def UpdateManufacturerFuel(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenSetingUpdateManufacturerFuel(_id=self.id, manufacturer=self.manufacturer)
     
     def DeleteManufacturerFuel(self, e):
         from dataFuel import data_base
-        from body import body_part
-        from heder import heder_main
+        from OssnovElements.body import body_part
+        from OssnovElements.heder import heder_main
         
         data_base.DeleteManufacturerData(_id=self.id)
-        heder_main.UpdateDataRowStation()
+        heder_main.Aplay()
         body_part.OpenSetingFuelManufacturer()
     
     def build(self):

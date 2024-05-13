@@ -71,7 +71,7 @@ class ButtonStationCard(UserControl):
         )
         
     def UpdateStationCard(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         
         body_part.OpenSetingUpdateStationCard(
             self_column=self.name_station,
@@ -83,12 +83,12 @@ class ButtonStationCard(UserControl):
     
     def DeleteStationCard(self, e):
         from dataFuel import data_base
-        from body import body_part
-        from heder import heder_main
+        from OssnovElements.body import body_part
+        from OssnovElements.heder import heder_main
         
         data_base.DeleteStationCard(id=self.id)
         
-        heder_main.UpdateDataRowStation()
+        heder_main.Aplay()
         body_part.OpenSetingColumnCheac(name_column=self.name_station)
         
     def LoadTypeFuelId(self):
@@ -111,6 +111,12 @@ class ButtonStationCard(UserControl):
         return (self.amount_of_fuel/self.maximum_fuel_capacity) * maximum_line_width  
     
     def build(self):
+        
+        import Person
+        if Person.Persona.stat != "admin":
+            self.button_delete.visible = False
+            self.change_button.visible = False
+        
         return Container(
             border_radius=border_radius.all(10),
             padding=0,

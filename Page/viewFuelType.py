@@ -10,7 +10,7 @@ class ViewFuelType(UserControl):
         self.cost = cost
         
     def UpdateTypeFuel(self,e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenSetingUpdateTypeFuel(
             _id=self.id,
             view=self.view,
@@ -20,11 +20,11 @@ class ViewFuelType(UserControl):
     
     def DeleteTypeFuel(self, e):
         from dataFuel import data_base
-        from body import body_part
-        from heder import heder_main
+        from OssnovElements.body import body_part
+        from OssnovElements.heder import heder_main
         
         data_base.DeleteFuelTypeData(_id=self.id)
-        heder_main.UpdateDataRowStation()
+        heder_main.Aplay()
         body_part.OpenListTypeFuel()
     
     def build(self):

@@ -109,7 +109,7 @@ class SetingHome(UserControl):
         
     def LoadDataReceipts(self):
         from dataFuel import data_base
-        from receipts import Receipts
+        from Page.receipts import Receipts
         
         list_data = data_base.LoadListDataReceipts()
         
@@ -147,7 +147,7 @@ class SetingHome(UserControl):
         return id_max
     
     def LoadReceiptsGroop(self, receipts_list):
-        from receipts import ReceiptsGroop
+        from Page.receipts import ReceiptsGroop
         receipts_groop_dict = {}
         for receipt in receipts_list:
             fuel_type = receipt.type_fuel
@@ -160,7 +160,7 @@ class SetingHome(UserControl):
         return list_receipts_groop
     
     def LoadReceiptsGroopColumnName(self, receipts_list):
-        from receipts import ReceiptsGroop
+        from Page.receipts import ReceiptsGroop
         receipts_groop_dict = {}
         for receipt in receipts_list:
             column_name = receipt.column_name

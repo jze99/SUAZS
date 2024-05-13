@@ -10,12 +10,12 @@ class SetingTypeFuel(UserControl):
         self.LoadFuelTypeList()
         
     def AddNewTypeFuel(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenNewTypeFuel()
     
     def LoadFuelTypeList(self):
         from dataFuel import data_base
-        from viewFuelType import ViewFuelType
+        from Page.viewFuelType import ViewFuelType
         
         list_fuel_type = data_base.LoadListFuelType()
         

@@ -9,17 +9,17 @@ class ViewFuel(UserControl):
         self.view = view
     
     def UpdateViewFuel(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenSetingUpdateViewFuel(_id=self.id, view=self.view)
         
     
     def DeleteViewFuel(self, e):
         from dataFuel import data_base
-        from body import body_part
-        from heder import heder_main
+        from OssnovElements.body import body_part
+        from OssnovElements.heder import heder_main
         
         data_base.DeleteViewData(_id=self.id)
-        heder_main.UpdateDataRowStation()
+        heder_main.Aplay()
         body_part.OpenSetingFuelView()
     
     def build(self):

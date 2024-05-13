@@ -11,9 +11,16 @@ class SetingColumnCheac(UserControl):
         
         self.optionsSelectTupeFuelDropdown = []
         
-        self.cost_text = Text(
-            size=25,
-            value="0р"
+        self.cost_text = TextField(# цена за топливо
+            label="Выброное ц. топлива",
+            height=60,
+            width=1300,
+            border_color="#B85C38",
+            read_only=False,
+            value="0",
+            text_size=16,
+            multiline=False,
+            on_change=self.ChengCost
         )
         
         self.type_of_fuel = Dropdown(
@@ -39,7 +46,7 @@ class SetingColumnCheac(UserControl):
         self.number_liters_slider = Slider(
             height=40,
             width=1300,
-            max=100,
+            max=0,
             min=0,
             round=2,
             active_color="#B85C38",
@@ -101,8 +108,8 @@ class SetingColumnCheac(UserControl):
     def IssueReceipt(self, e):#выпустить чек
         from dataFuel import data_base
         import datetime
-        from body import body_part
-        from heder import heder_main
+        from OssnovElements.body import body_part
+        from OssnovElements.heder import heder_main
         
         now = datetime.datetime.now()
         
@@ -124,12 +131,12 @@ class SetingColumnCheac(UserControl):
             id_type_fuel=self.options.id_type_fuel
         )
         
-        heder_main.UpdateDataRowStation()
+        heder_main.Aplay()
         body_part.OpenMainHome()
     
     def LoadingStationCard(self):
         from dataFuel import data_base
-        from buttonStationCard import ButtonStationCard
+        from Page.buttonStationCard import ButtonStationCard
         
         station_card = data_base.LoadingStationCard(column_name=self.name_column)
         if station_card: 
@@ -140,7 +147,7 @@ class SetingColumnCheac(UserControl):
                 amount_of_fuel=stat[2],
                 maximum_fuel_capacity=stat[3],
                 name_station=stat[1],
-                id_type_fuel=stat[4]
+                id_type_fuel=stat[4],
             )
             self.column_station.controls.append(
                 Container(
@@ -148,6 +155,17 @@ class SetingColumnCheac(UserControl):
                 )
             )
             stat_card.LoadTypeFuelId()
+            
+    def ChengCost(self, e):
+        try:
+            if self.options == None or self.number_liters_text == '':
+                return
+            self.number_liters_slider.value = round(float(self.cost_text.value)/self.options.cost_fuel,2)
+            self.number_liters_text.value = round(float(self.cost_text.value)/self.options.cost_fuel,2)
+            self.number_liters_slider.update()
+            self.number_liters_text.update()
+        except ValueError:
+            return
         
     def LoadingCost(self):
         try:
@@ -175,13 +193,13 @@ class SetingColumnCheac(UserControl):
         self.number_liters_slider.update()
         
     def SetSlider(self, e):
-        self.number_liters_text.value = int(self.number_liters_slider.value)
+        self.number_liters_text.value = str(round(self.number_liters_slider.value, 2))
         self.LoadingCost()
         self.number_liters_text.update()
 
     def LoadListFuel(self):# Загруска данных
         from dataFuel import data_base
-        from optionsSelectColumnCheacDropdown import OptionsSelectColumnCheacDropdown
+        from Page.optionsSelectColumnCheacDropdown import OptionsSelectColumnCheacDropdown
         
         list_fuel = data_base.LoadListStationColumnCheac(name_column=self.name_column)
         

@@ -50,14 +50,14 @@ class SetingUpadteViewFuel(UserControl):
         
     def UpdateView(self, e):
         from dataFuel import data_base
-        from body import body_part
-        from heder import heder_main
+        from OssnovElements.body import body_part
+        from OssnovElements.heder import heder_main
         
         data_base.UpdateViewFuelData(view=self.update_view_fuel_text.value, _id=self._id)
         
         body_part.OpenSetingFuelView()   
         
-        heder_main.UpdateDataRowStation()
+        heder_main.Aplay()
             
     def build(self):
         return self.seting_update_view_fuel_column

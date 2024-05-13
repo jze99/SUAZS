@@ -1,5 +1,5 @@
 from flet import *
-from setingHome import SetingHome
+from Page.setingHome import SetingHome
 
 class Body(UserControl):
     def __init__(self):
@@ -26,78 +26,78 @@ class Body(UserControl):
     
     
     def OpenSettingColumn(self):
-        from settingСolumn import SettingColumn
+        from Page.settingСolumn import SettingColumn
         self.body_part.content = Container(SettingColumn())
         self.body_part.update()
         
     def OpenSettingStation(self, _self):
-        from setingAddStation import SetingAddStation
+        from Page.setingAddStation import SetingAddStation
         self.body_part.content = Container(SetingAddStation(self_column=_self))
         self.body_part.update()
         
     def OpenMainHome(self):
-        from setingHome import SetingHome
+        from Page.setingHome import SetingHome
         self.body_part.content = Container(SetingHome())
         self.body_part.update()
         
     def OpenNewTypeFuel(self):
-        from setingAddDataTypeFuel import SetingAddDataTypeFuel
+        from Page.setingAddDataTypeFuel import SetingAddDataTypeFuel
         self.body_part.content = Container(SetingAddDataTypeFuel())
         self.body_part.update()
         
     def OpenListTypeFuel(self):
-        from setingTypeFuel import SetingTypeFuel
+        from Page.setingTypeFuel import SetingTypeFuel
         self.body_part.content = Container(SetingTypeFuel())
         self.body_part.update()
         
     def OpenSetingFuelView(self):
-        from setingFuelView import SetingFuelView
+        from Page.setingFuelView import SetingFuelView
         self.body_part.content = Container(SetingFuelView())
         self.body_part.update()
     
     def OpenAddNewViewFuel(self):
-        from setingAddNewViewFuel import SetingAddNewViewFuel
+        from Page.setingAddNewViewFuel import SetingAddNewViewFuel
         self.body_part.content = Container(SetingAddNewViewFuel())
         self.body_part.update()
         
     def OpenAddNewManufacturerFuel(self):
-        from setingAddNewManufacturerFuel import SetingAddNewManufacturerFuel
+        from Page.setingAddNewManufacturerFuel import SetingAddNewManufacturerFuel
         self.body_part.content = Container(SetingAddNewManufacturerFuel())
         self.body_part.update()
 
     def OpenSetingFuelManufacturer(self):
-        from setingFuelManufacturer import SetingFuelManufactorer
+        from Page.setingFuelManufacturer import SetingFuelManufactorer
         self.body_part.content = Container(SetingFuelManufactorer())
         self.body_part.update()
         
     def OpenSetingUpdateViewFuel(self, _id, view):
-        from setingUpdateViewFuel import SetingUpadteViewFuel
+        from Page.setingUpdateViewFuel import SetingUpadteViewFuel
         test = SetingUpadteViewFuel()
         self.body_part.content = test
         self.body_part.update()
         test.LoadData(_id=_id, view=view)
         
     def OpenSetingUpdateManufacturerFuel(self, _id, manufacturer):
-        from setingUpdateManufacturerFuel import SetingUpadteManufacturerFuel
+        from Page.setingUpdateManufacturerFuel import SetingUpadteManufacturerFuel
         test = SetingUpadteManufacturerFuel()
         self.body_part.content = test
         self.body_part.update()
         test.LoadData(_id=_id, manufacturer=manufacturer)
         
     def OpenSetingUpdateTypeFuel(self, _id, view, manufacturer, cost):
-        from setingUpdateTypeFuel import SetingUpdateTypeFuel
+        from Page.setingUpdateTypeFuel import SetingUpdateTypeFuel
         test = SetingUpdateTypeFuel()
         self.body_part.content = test
         self.body_part.update()
         test.LoadData(_id=_id, view=view, manufacturer=manufacturer, cost=cost)
         
     def OpenSetingColumnCheac(self, name_column:str):
-        from setingColumnCheac import SetingColumnCheac
+        from Page.setingColumnCheac import SetingColumnCheac
         self.body_part.content=SetingColumnCheac(name_column=name_column)
         self.body_part.update()
         
     def OpenSetingUpdateStationCard(self, self_column, maximum_amount_of_fuel, selected_amount_of_fuel, id_type_fuel, id):
-        from setingUpdateStationCard import SetingUpdateStation
+        from Page.setingUpdateStationCard import SetingUpdateStation
         
         self.body_part.content = SetingUpdateStation(
             self_column=self_column,
@@ -107,6 +107,25 @@ class Body(UserControl):
             id=id
         )
         self.body_part.update()
+        
+    def OpenPeopleList(self):
+        from Page.setingNewPeopleLogin import People
+        self.body_part.content = People()
+        self.body_part.update()
+    
+    def OpenChengPeople(self):
+        from Page.setingNewPeopleLogin import PeopleChenge
+        self.body_part.content = PeopleChenge()
+        self.body_part.update()
+        
+    def OpenNewPeopl(self):
+        from Page.setingNewPeopleLogin import NewPeople
+        self.body_part.content = NewPeople()
+        self.body_part.update()
+        
+    def Exit(self):
+        from main import Main
+        Main.page.go("/log")
         
     def build(self):
         return self.body_part

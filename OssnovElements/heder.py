@@ -18,17 +18,13 @@ class Heder(UserControl):
       alignment=CrossAxisAlignment.END,
       #height=140,
       auto_scroll=True,
-      controls=[
-          self.add_fueld_card_button,
-      ],
+      controls=[],
     )
-    
-    self.LoadingDataСolumn()
     
   def LoadingDataСolumn(self):
     from dataFuel import data_base
-    from columnCard import ColumnCard
-    from stationCard import StationCard
+    from Page.columnCard import ColumnCard
+    from Page.stationCard import StationCard
 
     column_data = data_base.LoadingColumnCard()
 
@@ -38,7 +34,7 @@ class Heder(UserControl):
     for colm in column_data:
       column_card = ColumnCard(
         name_column=colm[1],
-        status=colm[2]
+        statusC=colm[2],
       )
       self.row_column_card.controls.insert(len(self.row_column_card.controls)-1, Card(content=column_card))
       station_card = data_base.LoadingStationCard(column_name=colm[1])
@@ -49,7 +45,7 @@ class Heder(UserControl):
             amount_of_fuel=stat[2],
             maximum_fuel_capacity=stat[3],
             name_station=stat[1],
-            id_type_fuel=stat[4]
+            id_type_fuel=stat[4],
           )
           column_card.row_station_card.controls.append(
             Container(
@@ -59,18 +55,23 @@ class Heder(UserControl):
           stat_card.LoadTypeFuelId()
     
   def UpdateDataRowStation(self):
-    
     self.row_column_card.controls.clear()
     self.LoadingDataСolumn()
+    import Person
+    if Person.Persona.stat == "admin":
+      self.row_column_card.controls.append(self.add_fueld_card_button)
+    
+  def Aplay(self):
+    self.UpdateDataRowStation()
     self.row_column_card.update()
-            
             
   
   def AddColumnCardBodySetting(self, e):
-    from body import body_part
+    from OssnovElements.body import body_part
     body_part.OpenSettingColumn()
     
   def build(self):
+    self.UpdateDataRowStation()
     return self.row_column_card
-  
+
 heder_main = Heder()

@@ -11,7 +11,7 @@ class SetingFuelManufactorer(UserControl):
         
     def LoadViewFuel(self):
         from dataFuel import data_base
-        from viewManufacturerFuel import ManufacturerFuel
+        from Page.viewManufacturerFuel import ManufacturerFuel
         
         self.column_manufactorer_fuel.controls.clear()
         self.column_manufactorer_fuel.controls.append(Row(alignment=MainAxisAlignment.CENTER,controls=[Text(size=20, value="Производители топлива")]))
@@ -38,7 +38,7 @@ class SetingFuelManufactorer(UserControl):
         )
         
     def AddManufactorerFuel(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenAddNewManufacturerFuel()
 
     

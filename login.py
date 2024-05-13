@@ -28,15 +28,33 @@ class Login(UserControl):
           multiline=False,
           expand=1,
       )
+      
+    def GetPage(self, status):
+        import Person
+        Person.Persona.name = self.name_user.value
+        Person.Persona.pasw = self.passworg_user.value
+        Person.Persona.stat = status
+        self.page.go("/")
+        
+            
+        
 
-    def Login(self, e):
+    def Login(self):
         from dataFuel import data_base
         users_list = data_base.LoadingUsers()
         for user in users_list:
-            if user[1] == self.name_user.value and user[5] == self.passworg_user.value:
-                print("ура")
-                return
-        print("нет таких пользователей")
+            if user[1] == self.name_user.value and user[2] == self.passworg_user.value:
+                self.GetPage(user[3])
+                return "да"
+        return "нет таких пользователей"
+    
+    def PresLogin(self, e):
+        temp = self.Login()
+        if temp != "да":
+            self.name_user.value = "нет таких пользователей"
+            self.passworg_user.value = ""
+            self.name_user.update()
+            self.passworg_user.update()
 
     def build(self):
       return Column(
@@ -73,7 +91,7 @@ class Login(UserControl):
                             color="#E0C097",
                             shape=RoundedRectangleBorder(radius=10) 
                           ),
-                        on_click=self.Login
+                        on_click=self.PresLogin
                     )
                   ]
               ),

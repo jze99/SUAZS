@@ -26,13 +26,13 @@ class SettingColumn(UserControl):
         )
         
     def AddColumnButton(self, e):
-        from columnCard import ColumnCard
-        from heder import heder_main
+        from Page.columnCard import ColumnCard
+        from OssnovElements.heder import heder_main
         from dataFuel import data_base
         
         data_base.AddDataColumnCardBD(name=self.name_column.value, status=True)
         
-        column_card = ColumnCard(name_column=self.name_column.value, status=True)
+        column_card = ColumnCard(name_column=self.name_column.value, statusC=True)
         heder_main.row_column_card.controls.insert(len(heder_main.row_column_card.controls)-1, Card(content=column_card))
         heder_main.row_column_card.update()
     

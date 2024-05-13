@@ -11,7 +11,7 @@ class SetingFuelView(UserControl):
         
     def LoadViewFuel(self):
         from dataFuel import data_base
-        from viewFule import ViewFuel
+        from Page.viewFule import ViewFuel
         
         self.column_view_fuel.controls.clear()
         self.column_view_fuel.controls.append(Row(alignment=MainAxisAlignment.CENTER,controls=[Text(size=20, value="Вид топлива")]))
@@ -38,7 +38,7 @@ class SetingFuelView(UserControl):
         )
         
     def AddViewFuel(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenAddNewViewFuel()
 
     

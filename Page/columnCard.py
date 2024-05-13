@@ -1,11 +1,12 @@
 from flet import *
 
 class ColumnCard(UserControl):
-    def __init__(self, name_column, status):
+    def __init__(self, name_column, statusC):
         super().__init__()
         
+        
         self.name_column = name_column # название колонки
-        self.status = status # статус колонки
+        self.statusC = statusC # статус колонки
         self.row_station_card = Row()
         
         self.name_column_text = Text(
@@ -14,16 +15,29 @@ class ColumnCard(UserControl):
             color="#E0C097",
         )
         
+        self.addBox = IconButton(
+            icon=icons.ADD_BOX_OUTLINED,
+            icon_size=30,
+            style=ButtonStyle(
+                color="#E0C097",
+                shape=RoundedRectangleBorder(radius=10) 
+            ), 
+            on_click=self.AddStation,
+        )
     
     def AddStation(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenSettingStation(_self= self)
         
     def OpenColumnChec(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenSetingColumnCheac(name_column=self.name_column)
     
     def build(self):
+        import Person
+        if Person.Persona.stat != "admin":
+            self.addBox.visible = False
+        
         return Container(
             # задний фон карточки
             bgcolor="#5C3D2E",
@@ -44,16 +58,7 @@ class ColumnCard(UserControl):
                             Row(
                                 alignment=MainAxisAlignment.END,
                                 controls=[
-                                    
-                                    IconButton(
-                                        icon=icons.ADD_BOX_OUTLINED,
-                                        icon_size=30,
-                                        style=ButtonStyle(
-                                            color="#E0C097",
-                                            shape=RoundedRectangleBorder(radius=10) 
-                                        ), 
-                                        on_click=self.AddStation,
-                                    ), 
+                                    self.addBox
                                 ],
                             ),
                         ],

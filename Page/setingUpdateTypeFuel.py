@@ -1,6 +1,6 @@
 from flet import *
 
-class SetingAddDataTypeFuel(UserControl):
+class SetingUpdateTypeFuel(UserControl):
     
     def __init__(self):
         super().__init__()
@@ -71,13 +71,13 @@ class SetingAddDataTypeFuel(UserControl):
                     alignment=MainAxisAlignment.END,
                     controls=[
                         IconButton(
-                            icon=icons.ADD_BOX_OUTLINED,
+                            icon=icons.UPDATE_ROUNDED,
                             icon_size=40,
                             style=ButtonStyle(
                                 color="#E0C097",
                                 shape=RoundedRectangleBorder(radius=10) 
                             ), 
-                            on_click=self.AddDataFuelType
+                            on_click=self.UpdateDataFuelType
                         )
                     ]
                 )
@@ -90,30 +90,30 @@ class SetingAddDataTypeFuel(UserControl):
         
         self.LoadInfoFuel()
     
-    def AddDataFuelType(self, e):
+    def UpdateDataFuelType(self, e):
         from dataFuel import data_base
+        from OssnovElements.heder import heder_main
         try:           
-            data_base.AddDataTypeFuel(
-                view_fuel=self.name_fuel_text.value,
+            data_base.UpdateTypeFuelData(
+                view=self.name_fuel_text.value,
                 manufacturer=self.manufacturer_fuel_text.value,
-                cost=float(self.cost_fuel_text.value)
+                cost=float(self.cost_fuel_text.value),
+                _id=self._id
             )
+        
+            heder_main.Aplay()
+        
         except ValueError:
             self.cost_fuel_text.value = "Только цифры"
             self.cost_fuel_text.update()
         
     def OpenAddViewFuel(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenAddNewViewFuel()
         
     def OpenAddManufacturerFuel(self, e):
-        from body import body_part
+        from OssnovElements.body import body_part
         body_part.OpenAddNewManufacturerFuel()
-        
-    def AddNewManufacturer(self, e):
-        from dataFuel import data_base
-        data_base.AddManufacturerFuel([self.new_manufacturer_fuel_text.value])
-        self.LoadInfoFuel()
         
     def LoadInfoFuel(self):
         from dataFuel import data_base
@@ -129,6 +129,14 @@ class SetingAddDataTypeFuel(UserControl):
             for manufacturer in list_manufacturer:
                self.manufacturer_fuel_text.options.append(dropdown.Option(str(manufacturer[1])))
         
+    def LoadData(self, _id, view, manufacturer, cost):
+        
+        self._id = _id
+        self.name_fuel_text.value = view
+        self.manufacturer_fuel_text.value = manufacturer
+        self.cost_fuel_text.value = cost
+        self.type_fuel_cont.update()
+    
     def build(self):
         return self.type_fuel_cont
     
